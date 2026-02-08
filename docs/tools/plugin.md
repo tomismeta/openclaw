@@ -305,6 +305,31 @@ Plugins export either:
 - A function: `(api) => { ... }`
 - An object: `{ id, name, configSchema, register(api) { ... } }`
 
+### Required manifest fields
+
+When exporting an object manifest, `id` is required.
+
+Minimal valid plugin export:
+
+```ts
+export default {
+  id: "my-plugin",
+  name: "My Plugin",
+  register(api) {
+    // register hooks/tools/etc.
+  },
+};
+```
+
+If your plugin is loaded from a package/folder, it must also include
+`openclaw.plugin.json` in the plugin root.
+
+Troubleshooting:
+
+- Error: `plugins: plugin: plugin manifest requires id`
+  - Cause: plugin manifest/default export is missing `id`.
+  - Fix: add a stable `id` to the plugin manifest export.
+
 ## Plugin hooks
 
 Plugins can ship hooks and register them at runtime. This lets a plugin bundle
